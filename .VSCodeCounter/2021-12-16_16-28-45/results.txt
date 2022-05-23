@@ -1,0 +1,65 @@
+Date : 2021-12-16 16:28:45
+Directory : d:\CodeField\VSCODE_Web\Covid-19-monitor
+Total : 31 files,  433009 codes, 1867 comments, 11698 blanks, all 446574 lines
+
+Languages
++------------+------------+------------+------------+------------+------------+
+| language   | files      | code       | comment    | blank      | total      |
++------------+------------+------------+------------+------------+------------+
+| JSON       |          1 |    385,368 |          0 |          1 |    385,369 |
+| CSS        |         17 |     35,061 |        139 |      8,145 |     43,345 |
+| JavaScript |         11 |     12,362 |      1,686 |      3,543 |     17,591 |
+| HTML       |          2 |        218 |         42 |          9 |        269 |
++------------+------------+------------+------------+------------+------------+
+
+Directories
++---------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| path                                                                                              | files      | code       | comment    | blank      | total      |
++---------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| .                                                                                                 |         31 |    433,009 |      1,867 |     11,698 |    446,574 |
+| bootstrap-5.1.1-dist                                                                              |         22 |     46,770 |      1,734 |     11,640 |     60,144 |
+| bootstrap-5.1.1-dist\css                                                                          |         16 |     34,996 |        136 |      8,129 |     43,261 |
+| bootstrap-5.1.1-dist\js                                                                           |          6 |     11,774 |      1,598 |      3,511 |     16,883 |
+| css                                                                                               |          1 |         65 |          3 |         16 |         84 |
+| html                                                                                              |          2 |        218 |         42 |          9 |        269 |
+| js                                                                                                |          5 |        588 |         88 |         32 |        708 |
+| static                                                                                            |          1 |    385,368 |          0 |          1 |    385,369 |
++---------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+
+Files
++---------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| filename                                                                                          | language   | code       | comment    | blank      | total      |
++---------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| d:\CodeField\VSCODE_Web\Covid-19-monitor\bootstrap-5.1.1-dist\css\bootstrap-grid.css              | CSS        |      3,908 |          7 |      1,136 |      5,051 |
+| d:\CodeField\VSCODE_Web\Covid-19-monitor\bootstrap-5.1.1-dist\css\bootstrap-grid.min.css          | CSS        |          1 |          6 |          0 |          7 |
+| d:\CodeField\VSCODE_Web\Covid-19-monitor\bootstrap-5.1.1-dist\css\bootstrap-grid.rtl.css          | CSS        |      3,908 |          7 |      1,135 |      5,050 |
+| d:\CodeField\VSCODE_Web\Covid-19-monitor\bootstrap-5.1.1-dist\css\bootstrap-grid.rtl.min.css      | CSS        |          1 |          6 |          0 |          7 |
+| d:\CodeField\VSCODE_Web\Covid-19-monitor\bootstrap-5.1.1-dist\css\bootstrap-reboot.css            | CSS        |        400 |         16 |         65 |        481 |
+| d:\CodeField\VSCODE_Web\Covid-19-monitor\bootstrap-5.1.1-dist\css\bootstrap-reboot.min.css        | CSS        |          1 |          7 |          0 |          8 |
+| d:\CodeField\VSCODE_Web\Covid-19-monitor\bootstrap-5.1.1-dist\css\bootstrap-reboot.rtl.css        | CSS        |        406 |          8 |         64 |        478 |
+| d:\CodeField\VSCODE_Web\Covid-19-monitor\bootstrap-5.1.1-dist\css\bootstrap-reboot.rtl.min.css    | CSS        |          1 |          7 |          0 |          8 |
+| d:\CodeField\VSCODE_Web\Covid-19-monitor\bootstrap-5.1.1-dist\css\bootstrap-utilities.css         | CSS        |      3,729 |          9 |      1,128 |      4,866 |
+| d:\CodeField\VSCODE_Web\Covid-19-monitor\bootstrap-5.1.1-dist\css\bootstrap-utilities.min.css     | CSS        |          1 |          6 |          0 |          7 |
+| d:\CodeField\VSCODE_Web\Covid-19-monitor\bootstrap-5.1.1-dist\css\bootstrap-utilities.rtl.css     | CSS        |      3,725 |          7 |      1,125 |      4,857 |
+| d:\CodeField\VSCODE_Web\Covid-19-monitor\bootstrap-5.1.1-dist\css\bootstrap-utilities.rtl.min.css | CSS        |          1 |          6 |          0 |          7 |
+| d:\CodeField\VSCODE_Web\Covid-19-monitor\bootstrap-5.1.1-dist\css\bootstrap.css                   | CSS        |      9,454 |         27 |      1,741 |     11,222 |
+| d:\CodeField\VSCODE_Web\Covid-19-monitor\bootstrap-5.1.1-dist\css\bootstrap.min.css               | CSS        |          2 |          5 |          0 |          7 |
+| d:\CodeField\VSCODE_Web\Covid-19-monitor\bootstrap-5.1.1-dist\css\bootstrap.rtl.css               | CSS        |      9,456 |          7 |      1,735 |     11,198 |
+| d:\CodeField\VSCODE_Web\Covid-19-monitor\bootstrap-5.1.1-dist\css\bootstrap.rtl.min.css           | CSS        |          2 |          5 |          0 |          7 |
+| d:\CodeField\VSCODE_Web\Covid-19-monitor\bootstrap-5.1.1-dist\js\bootstrap.bundle.js              | JavaScript |      4,868 |        584 |      1,361 |      6,813 |
+| d:\CodeField\VSCODE_Web\Covid-19-monitor\bootstrap-5.1.1-dist\js\bootstrap.bundle.min.js          | JavaScript |          1 |          6 |          0 |          7 |
+| d:\CodeField\VSCODE_Web\Covid-19-monitor\bootstrap-5.1.1-dist\js\bootstrap.esm.js                 | JavaScript |      3,432 |        495 |      1,073 |      5,000 |
+| d:\CodeField\VSCODE_Web\Covid-19-monitor\bootstrap-5.1.1-dist\js\bootstrap.esm.min.js             | JavaScript |          1 |          6 |          0 |          7 |
+| d:\CodeField\VSCODE_Web\Covid-19-monitor\bootstrap-5.1.1-dist\js\bootstrap.js                     | JavaScript |      3,471 |        501 |      1,077 |      5,049 |
+| d:\CodeField\VSCODE_Web\Covid-19-monitor\bootstrap-5.1.1-dist\js\bootstrap.min.js                 | JavaScript |          1 |          6 |          0 |          7 |
+| d:\CodeField\VSCODE_Web\Covid-19-monitor\css\style.css                                            | CSS        |         65 |          3 |         16 |         84 |
+| d:\CodeField\VSCODE_Web\Covid-19-monitor\html\index.html                                          | HTML       |        205 |         42 |          8 |        255 |
+| d:\CodeField\VSCODE_Web\Covid-19-monitor\html\test.html                                           | HTML       |         13 |          0 |          1 |         14 |
+| d:\CodeField\VSCODE_Web\Covid-19-monitor\js\chart.js                                              | JavaScript |        171 |          7 |         12 |        190 |
+| d:\CodeField\VSCODE_Web\Covid-19-monitor\js\echarts.min.js                                        | JavaScript |          3 |         40 |          3 |         46 |
+| d:\CodeField\VSCODE_Web\Covid-19-monitor\js\getData.js                                            | JavaScript |        344 |         40 |         13 |        397 |
+| d:\CodeField\VSCODE_Web\Covid-19-monitor\js\jquery-3.6.0.min.js                                   | JavaScript |          1 |          1 |          1 |          3 |
+| d:\CodeField\VSCODE_Web\Covid-19-monitor\js\test.js                                               | JavaScript |         69 |          0 |          3 |         72 |
+| d:\CodeField\VSCODE_Web\Covid-19-monitor\static\statistic.json                                    | JSON       |    385,368 |          0 |          1 |    385,369 |
+| Total                                                                                             |            |    433,009 |      1,867 |     11,698 |    446,574 |
++---------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+

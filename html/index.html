@@ -1,0 +1,255 @@
+<!doctype html>
+<html lang="zh-CN">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>在线疫情数据实时更新</title>
+  <!-- Bootstrap -->
+  <link rel="stylesheet" href="../bootstrap-5.1.1-dist/css/bootstrap.min.css">
+  <!-- style -->
+  <link rel="stylesheet" href="../css/style.css">
+  <script src="../js/jquery-3.6.0.min.js"></script>
+  <script src="../js/echarts.min.js"></script>
+  <script src="../js/getData.js"></script>
+  <style>
+   a {
+	    text-decoration: none; /* 去除默认的下划线 */
+	    outline: none;	/* 去除旧版浏览器的点击后的外虚线框 */
+    	color: #000;	/* 去除默认的颜色和点击后变化的颜色 */     
+   }
+   a:hover{
+      color:#000;
+   }
+
+   #news div.card:hover{
+     background-color: rgb(223, 223, 223);
+   }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <!-- hedaer -->
+    <div class="row" id="header-row">
+      <div class="card shadow" >
+        <div class="card-header">
+
+        </div>
+        <div class="card-body">
+          <h1 class="card-title">疫情数据实时更新报告</h5>
+            <p class="card-text">新型冠状病毒肺炎（Covid-19）</p>
+        </div>
+      </div>
+    </div>
+    <!-- navbar tab -->
+    <ul class="nav nav-pills nav-fill shadow" style="margin-top: 1rem;" id="myTab" role="tablist">
+      <li class="nav-item" id="nav-item-domestic" role="presentation">
+        <button class="nav-link active" id="pills-domestic-tab" data-bs-toggle="pill" data-bs-target="#pills-domestic" type="button"
+          role="tab" aria-controls="pills-domestic" aria-selected="true">国内疫情</button>
+      </li>
+      <li class="nav-item" id="nav-item-global" role="presentation">
+        <button class="nav-link" id="pills-global-tab" data-bs-toggle="pill" data-bs-target="#pills-global" type="button"
+          role="tab" aria-controls="pills-global" aria-selected="false">国外疫情</button>
+      </li>
+      <li class="nav-item" id="nav-id-news" role="presentation">
+        <button class="nav-link" id="pills-news-tab" data-bs-toggle="pill" data-bs-target="#pills-news" type="button"
+          role="tab" aria-controls="pills-news" aria-selected="false">最新消息</button>
+      </li>
+    </ul>
+    <!-- navbar content -->
+    <div class="tab-content" id="pills-tabContent">
+      <!-- domestic pane -->
+      <div class="tab-pane fade show active " id="pills-domestic" role="tabpanel" aria-labelledby="pills-domestic-tab">  
+        <div id="domestic-statistics" class="shadow">
+          <div class="row shadow" id="domestic-r1" style="margin-top: 2rem;">
+            <div class="col p-0">
+              <div class="card" id="card-domestic-01">
+                <h6 class="card-header">新增确诊</h6>
+                <div class="card-body">
+                  <p class="card-text" id="data-domestic-curConfirmedIncr">...</p>
+                </div>
+              </div>
+            </div>
+            <div class="col p-0 ms-0">
+              <div class="card" id="card-domestic-02">
+                <h6 class="card-header">现有确诊</h6>
+                <div class="card-body">
+                  <p class="card-text" id="data-domestic-curConfirmed">0000</p>
+                </div>
+              </div>
+            </div>
+            <div class="col p-0 ms-0">
+              <div class="card" id="card-domestic-03">
+                <h6 class="card-header">累计确诊</h6>
+                <div class="card-body">
+                  <p class="card-text" id="data-domestic-confirmed">0000</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row mt-1 " id="domestic-r2">
+            <div class="col p-0">
+              <div class="card" id="card-domestic-11">
+                <h6 class="card-header">疑似确诊</h6>
+                <div class="card-body">
+                  <p class="card-text" id="data-domestic-suspected">0000</p>
+                </div>
+              </div>
+            </div>
+            <div class="col p-0 ms-0">
+              <div class="card" id="card-domestic-12">
+                <h6 class="card-header">累计治愈</h6>
+                <div class="card-body">
+                  <p class="card-text" id="data-domestic-cured">0000</p>
+                </div>
+              </div>
+            </div>
+            <div class="col p-0 ms-0">
+              <div class="card" id="card-domestic-13">
+                <h6 class="card-header">累计死亡</h6>
+                <div class="card-body">
+                  <p class="card-text" id="data-domestic-dead">0000</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div id="domestic-charts" style="height: 300px; width: 100%;padding: auto;margin-top: 2rem;">
+          <!-- <script src="../js/chart.js"></script> -->
+        </div>
+        <div id="domestic-table" class="shadow" style="margin-top: 2rem;">
+          <table class="table table-sm table-striped table-bordered">
+            <thead>
+              <tr>
+                <th scope="col">区域</th>
+                <th scope="col">现存确诊</th>
+                <th scope="col">疑似确诊</th>
+                <th scope="col">累计确诊</th>
+              </tr>
+            </thead>
+            <tbody>  
+            </tbody>
+          </table>
+        </div>
+
+      </div>
+      <!-- global pane -->
+      <div class="tab-pane fade" id="pills-global" role="tabpanel" aria-labelledby="pills-global-tab">
+        <div id="global-statistics" class="shadow">
+          <div class="row" id="global-r1" style="margin-top: 2rem;">
+            <div class="col p-0">
+              <div class="card" id="card-global-01">
+                <h6 class="card-header">新增确诊</h6>
+                <div class="card-body">
+                  <p class="card-text" id="data-global-curConfirmedIncr">0001</p>
+                </div>
+              </div>
+            </div>
+            <div class="col p-0 ms-0">
+              <div class="card" id="card-global-02">
+                <h6 class="card-header">现有确诊</h6>
+                <div class="card-body">
+                  <p class="card-text" id="data-global-curConfirmed">0001</p>
+                </div>
+              </div>
+            </div>
+            <div class="col p-0 ms-0">
+              <div class="card" id="card-global-03">
+                <h6 class="card-header">累计确诊</h6>
+                <div class="card-body">
+                  <p class="card-text" id="data-global-confirmed">0001</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row mt-1 " id="global-r2">
+            <div class="col p-0">
+              <div class="card" id="card-global-11">
+                <h6 class="card-header">新增死亡</h6>
+                <div class="card-body">
+                  <p class="card-text" id="data-global-suspected">0001</p>
+                </div>
+              </div>
+            </div>
+            <div class="col p-0 ms-0">
+              <div class="card" id="card-global-12">
+                <h6 class="card-header">累计治愈</h6>
+                <div class="card-body">
+                  <p class="card-text" id="data-global-cured">0001</p>
+                </div>
+              </div>
+            </div>
+            <div class="col p-0 ms-0">
+              <div class="card" id="card-global-13">
+                <h6 class="card-header">累计死亡</h6>
+                <div class="card-body">
+                  <p class="card-text" id="data-global-dead">0001</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div id="global-charts" style="height: 300px; width: 100%; padding: auto; margin-top: 2rem;">
+          <!-- <script src="../js/domestic-chart.js"></script> -->
+        </div>
+        <div id="global-table" class="align-middle" style="margin-top: 2rem;">
+          <table class="table table-sm table-striped table-bordered">
+            <thead>
+              <tr>
+                <th scope="col">区域</th>
+                <th scope="col">现存确诊</th>
+                <th scope="col">累计确诊</th>
+                <th scope="col">死亡率</th>
+              </tr>
+            </thead>
+            <tbody>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <!-- news pane -->
+      <div class="tab-pane fade" id="pills-news" role="tabpanel" aria-labelledby="pills-news-tab">
+        <div id="news" style="margin-top: 2rem;">
+          <!-- <a class="news-a" href="#">
+            <div class="card shadow-sm p-3 mb-3" >
+              <div class="card-body">
+                <h5 class="card-title">Special title treatment</h5>
+                <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
+                <p class="card-text text-start">With supporting text below as a natural lead-in to additional content.</p>
+  
+              </div>
+            </div>
+          </a>
+          <a class="news-a" href="#">
+            <div class="card shadow-sm p-3 mb-3" >
+              <div class="card-body">
+                <h5 class="card-title">Special title treatment</h5>
+                <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
+                <p class="card-text text-start">With supporting text below as a natural lead-in to additional content.</p>
+  
+              </div>
+            </div>
+          </a>          
+          <a class="news-a" href="#">
+            <div class="card shadow-sm p-3 mb-3" >
+              <div class="card-body">
+                <h5 class="card-title">Special title treatment</h5>
+                <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
+                <p class="card-text text-start">With supporting text below as a natural lead-in to additional content.</p>
+  
+              </div>
+            </div>
+          </a> -->
+        </div>
+      </div>
+    </div>
+    <!-- table -->
+    
+    <!-- script importing -->
+   
+    <script src="../bootstrap-5.1.1-dist/js/bootstrap.min.js" type="text/javascript"></script>
+</body>
+
+</html>
