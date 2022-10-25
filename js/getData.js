@@ -5,44 +5,47 @@ var global_series2 = [];
 var domestic_chart;
 var global_chart;
 
-// 打开网页时运行此函数
+
 $(document).ready(function () {
-  //get latest data
+  //get overall data
   $.getJSON(
-    "http://111.231.75.86:8000/api/statistics/latest",
+    "http://127.0.0.1:12560/api/overall",
     function (data, status) {
       //修改statistics_domestic里card的数据
-      $("#card-domestic-01 p").text(
-        data.domesticStatistics.currentConfirmedIncr
-      );
-      $("#card-domestic-02 p").text(
-        data.domesticStatistics.currentConfirmedCount
-      );
-      $("#card-domestic-03 p").text(data.domesticStatistics.confirmedCount);
-      $("#card-domestic-11 p").text(data.domesticStatistics.suspectedCount);
-      $("#card-domestic-12 p").text(data.domesticStatistics.curedCount);
-      $("#card-domestic-13 p").text(data.domesticStatistics.deadCount);
+      $("#card-domestic-01 p").text(data.currentConfirmedIncr);
+      $("#card-domestic-02 p").text(data.currentConfirmedCount);
+      $("#card-domestic-03 p").text(data.confirmedCount);
+      $("#card-domestic-11 p").text(data.suspectedCount);
+      $("#card-domestic-12 p").text(data.curedCount);
+      $("#card-domestic-13 p").text(data.deadCount);
       //修改statistics_global里card的数据
-      $("#card-global-01 p").text(data.globalStatistics.currentConfirmedIncr);
-      $("#card-global-02 p").text(data.globalStatistics.currentConfirmedCount);
-      $("#card-global-03 p").text(data.globalStatistics.confirmedCount);
-      $("#card-global-11 p").text(data.globalStatistics.deadIncr);
-      $("#card-global-12 p").text(data.globalStatistics.curedCount);
-      $("#card-global-13 p").text(data.globalStatistics.deadCount);
+      $("#card-global-01 p").text(data.foreignStatistics.currentConfirmedIncr);
+      $("#card-global-02 p").text(data.foreignStatistics.currentConfirmedCount);
+      $("#card-global-03 p").text(data.foreignStatistics.confirmedCount);
+      $("#card-global-11 p").text(data.foreignStatistics.deadIncr);
+      $("#card-global-12 p").text(data.foreignStatistics.curedCount);
+      $("#card-global-13 p").text(data.foreignStatistics.deadCount);
+    }
+  );
+
+  $.getJSON(
+    "http://127.0.0.1:12560/api/timeline",
+    function (data, status) {
       //向最新消息里添加dom元素
-      for (let i = 0; i < data.timelines.length; i++) {
+      for (let i = 0; i < data.length; i++) {
         appendNewsCard(
-          data.timelines[i].title,
-          data.timelines[i].summary,
-          data.timelines[i].sourceUrl,
-          data.timelines[i].pubDateStr
+          data[i].title,
+          data[i].summary,
+          data[i].sourceUrl,
+          data[i].pubDateStr
         );
       }
     }
-  );
-  //get China's data
+  )
+
+  //get province's data
   $.getJSON(
-    "http://175.178.174.246:9100/api/province",
+    "http://127.0.0.1:12560/api/area/province",
     function (data, status) {
       //append data to tbody
       data.sort(sortByProperty("currentConfirmedCount"));
@@ -64,7 +67,7 @@ $(document).ready(function () {
   );
   //get international data
   $.getJSON(
-    "http://175.178.174.246:9100/api/abroad",
+    "http://127.0.0.1:12560/api/area/abroad",
     function (data, status) {
       //append data to tbody
       data.sort(sortByProperty("currentConfirmedCount"));
@@ -88,10 +91,10 @@ $(document).ready(function () {
   );
   //get echart data
 
-  $.getJSON("http://175.178.174.246:9100/api/statistics/domestic/all", function (data, status) {
+  $.getJSON("http://127.0.0.1:12560/api/overall/list", function (data, status) {
     initDomesticChart(data)
   });
-  $.getJSON("http://175.178.174.246:9100/api/statistics/global/all", function (data, status) {
+  $.getJSON("http://127.0.0.1:12560/api/overall/list", function (data, status) {
     initGlobalChart(data)
   });
 
@@ -144,12 +147,12 @@ $(document).ready(function () {
   }
   //整理数据，初始化图表
   function initDomesticChart(data) {
-    var dates=[];
+    var dates = [];
     for (i = 0; i < data.length; i += 1) {
       dates.push(data[i].date);
       domestic_series.push(data[i].confirmedCount);
       domestic_current.push(data[i].currentConfirmedCount);
-    }  
+    }
 
     console.log(dates);
     console.log(domestic_series);
@@ -159,15 +162,15 @@ $(document).ready(function () {
     );
     domestic_chart.setOption({
       title: {
-         
+
       },
       tooltip: {
         trigger: "axis",
         position: function (pos, params, dom, rect, size) {
-            // 鼠标在左侧时 tooltip 显示到右侧，鼠标在右侧时 tooltip 显示到左侧。
-            var obj = {top: 60};
-            obj[['left', 'right'][+(pos[0] < size.viewSize[0] / 2)]] = 5;
-            return obj;
+          // 鼠标在左侧时 tooltip 显示到右侧，鼠标在右侧时 tooltip 显示到左侧。
+          var obj = { top: 60 };
+          obj[['left', 'right'][+(pos[0] < size.viewSize[0] / 2)]] = 5;
+          return obj;
         }
       },
       legend: {
@@ -178,7 +181,7 @@ $(document).ready(function () {
         right: "1%",
         top: '5%',
         bottom: '17%',
-        containLabel: true 
+        containLabel: true
       },
       xAxis: {
         type: "category",
@@ -188,16 +191,16 @@ $(document).ready(function () {
             show: true,
           },
         },
-        axisLabel:{
-            fontSize:10
+        axisLabel: {
+          fontSize: 10
         }
       },
       yAxis: {
         type: "value",
         name: "累计感染人数",
-        axisLabel:{
-            fontSize:10,
-            inside: true
+        axisLabel: {
+          fontSize: 10,
+          inside: true
         }
       },
       dataZoom: [
@@ -244,30 +247,30 @@ $(document).ready(function () {
           hoverAnimation: "true",
         },
         {
-            type: 'line',
-            name: '现有感染',
-            smooth: "true",
-            data: domestic_current,
-            stack: 'Total',
-            sampling: "average",
-            areaStyle: {},
-            emphasis: {
-              focus: 'series'
-            },
-            
+          type: 'line',
+          name: '现有感染',
+          smooth: "true",
+          data: domestic_current,
+          stack: 'Total',
+          sampling: "average",
+          areaStyle: {},
+          emphasis: {
+            focus: 'series'
           },
+
+        },
       ],
     });
-  
-      // 当Echarts绘制图表计算宽度的时候，由于echart在tab页内，父容器display: none，所以无法获取到width，
-      // 而 parseInt(stl.width, 10)) 将width: 100%;转为100，所以计算出的图表宽度为100px，此时手动resize可以解决问题
-      $("#pills-domestic-tab").click(function (e) {
-        setInterval(domestic_chart.resize, 200);
-      });
+
+    // 当Echarts绘制图表计算宽度的时候，由于echart在tab页内，父容器display: none，所以无法获取到width，
+    // 而 parseInt(stl.width, 10)) 将width: 100%;转为100，所以计算出的图表宽度为100px，此时手动resize可以解决问题
+    $("#pills-domestic-tab").click(function (e) {
+      setInterval(domestic_chart.resize, 200);
+    });
   }
-  function initGlobalChart(data){
-    var dates=[];
-    for(i = 0; i < data.length; i++) {
+  function initGlobalChart(data) {
+    var dates = [];
+    for (i = 0; i < data.length; i++) {
       dates.push(data[i].date);
       global_series.push(data[i].confirmedCount)
       global_series2.push(data[i].currentConfirmedCount)
@@ -279,15 +282,15 @@ $(document).ready(function () {
     var global_chart = echarts.init(document.getElementById("global-charts"));
     global_chart.setOption({
       title: {
-        
+
       },
       tooltip: {
         trigger: "axis",
         position: function (pos, params, dom, rect, size) {
-            // 鼠标在左侧时 tooltip 显示到右侧，鼠标在右侧时 tooltip 显示到左侧。
-            var obj = {top: 60};
-            obj[['left', 'right'][+(pos[0] < size.viewSize[0] / 2)]] = 5;
-            return obj;
+          // 鼠标在左侧时 tooltip 显示到右侧，鼠标在右侧时 tooltip 显示到左侧。
+          var obj = { top: 60 };
+          obj[['left', 'right'][+(pos[0] < size.viewSize[0] / 2)]] = 5;
+          return obj;
         }
       },
       legend: {
@@ -298,7 +301,7 @@ $(document).ready(function () {
         right: "1%",
         top: '5%',
         bottom: '18%',
-        containLabel: true 
+        containLabel: true
       },
       xAxis: {
         type: "category",
@@ -308,16 +311,16 @@ $(document).ready(function () {
             show: true,
           },
         },
-        axisLabel:{
-            fontSize:10
+        axisLabel: {
+          fontSize: 10
         }
       },
       yAxis: {
         type: "value",
         name: "累计感染人数",
-        axisLabel:{
-            fontSize:10,
-            inside: true
+        axisLabel: {
+          fontSize: 10,
+          inside: true
         }
       },
       dataZoom: [
@@ -364,24 +367,24 @@ $(document).ready(function () {
           hoverAnimation: "true",
         },
         {
-            type: 'line',
-            name: '现有感染',
-            stack: 'Total',
-            sampling: "average",
-            areaStyle: {},
-            emphasis: {
-              focus: 'series'
-            },
-            data: global_series2,
-            hoverAnimation: "true",
+          type: 'line',
+          name: '现有感染',
+          stack: 'Total',
+          sampling: "average",
+          areaStyle: {},
+          emphasis: {
+            focus: 'series'
           },
+          data: global_series2,
+          hoverAnimation: "true",
+        },
       ],
     });
 
     window.addEventListener("resize", function () {
-        domestic_chart.resize();
-        global_chart.resize();
-      });
+      domestic_chart.resize();
+      global_chart.resize();
+    });
 
     $("#pills-global-tab").click(function () {
       setInterval(global_chart.resize, 200);

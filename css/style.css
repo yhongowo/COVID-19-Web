@@ -1,10 +1,10 @@
     /* basic style */
     :root {
-      --curConfirmedIncr: #e69262;
-      --curConfirmed: #f06161a1;
-      --confirmed: #a54f50;
-      --cured: #62771dde;
-      --dead: #5d5a62;
+      --curConfirmedIncr: #ed5353;
+      --curConfirmed: #ed5353;
+      --confirmed: #6c0000;
+      --cured: #7dc664;
+      --dead: #262424;
       --suspected: #6b537c;
     }
 
@@ -15,69 +15,75 @@
     .container {
       background-color: white;
     }
-    
+
     table {
-      table-layout : fixed;
+      table-layout: fixed;
     }
-    
-    table td{
+
+    table td {
       overflow: hidden;
       text-overflow: ellipsis;
       white-space: nowrap;
     }
+
     /* card-header style */
-    #card-domestic-01 .card-header, #card-global-01 .card-header {
-      background-color: var(--curConfirmedIncr);
-      color: #e9e9e9;
+    #card-domestic-01 .card-header,
+    #card-global-01 .card-header {
+      color: #ed5353;
     }
 
-    #card-domestic-02 .card-header, #card-global-02 .card-header{
-      background-color: var(--curConfirmed);
-      color: #e9e9e9;
+    #card-domestic-02 .card-header,
+    #card-global-02 .card-header {
+      color: #ed5353;
     }
 
-    #card-domestic-03 .card-header, #card-global-03 .card-header {
-      background-color: var(--confirmed);
-      color: #e9e9e9;
+    #card-domestic-03 .card-header,
+    #card-global-03 .card-header {
+      color: #6c0000;
     }
 
-    #card-domestic-11 .card-header, #card-global-11 .card-header {
-      background-color: var(--suspected);
-      color: #e9e9e9;
+    #card-domestic-11 .card-header,
+    #card-global-11 .card-header {
+      color: #6b537c;
     }
 
-    #card-domestic-12 .card-header, #card-global-12 .card-header {
-      background-color: var(--cured);
-      color: #e9e9e9;
+    #card-domestic-12 .card-header,
+    #card-global-12 .card-header {
+      color: #7dc664;
     }
 
-    #card-domestic-13 .card-header, #card-global-13 .card-header {
-      background-color: var(--dead);
-      color: #e9e9e9;
+    #card-domestic-13 .card-header,
+    #card-global-13 .card-header {
+      color: #262424;
     }
-   
+
     /* card-text style */
     .tab-content .card-text {
       text-align: center;
       font-size: 1.1rem;
     }
 
-    #card-domestic-01 .card-text, #card-global-01 .card-text {
+    #card-domestic-01 .card-text,
+    #card-global-01 .card-text {
       color: var(--curConfirmedIncr);
     }
 
-    #card-domestic-02 .card-text, #card-global-02 .card-text{
+    #card-domestic-02 .card-text,
+    #card-global-02 .card-text {
       color: var(--curConfirmed);
     }
 
-    #card-domestic-03 .card-text, #card-global-03 .card-text{
+    #card-domestic-03 .card-text,
+    #card-global-03 .card-text {
       color: var(--confirmed);
     }
 
-    #card-domestic-11 .card-text, #card-global-11 .card-text{
+    #card-domestic-11 .card-text,
+    #card-global-11 .card-text {
       color: var(--suspected);
     }
 
-    #card-domestic-12 .card-text, #card-global-12 .card-text{
+    #card-domestic-12 .card-text,
+    #card-global-12 .card-text {
       color: var(--cured);
     }
