@@ -7,12 +7,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>在线疫情数据实时更新</title>
   <!-- Bootstrap -->
-  <link rel="stylesheet" href="../bootstrap-5.1.1-dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="/bootstrap-5.1.1-dist/css/bootstrap.min.css">
   <!-- style -->
-  <link rel="stylesheet" href="../css/style.css">
-  <script src="../js/jquery-3.6.0.min.js"></script>
-  <script src="../js/echarts.min.js"></script>
-  <script src="../js/getData.js"></script>
+  <link rel="stylesheet" href="/css/style.css">
+  <script src="/js/jquery-3.6.0.min.js"></script>
+  <script src="/js/echarts.min.js"></script>
+  <script src="/js/getData.js"></script>
   <style>
    a {
 	    text-decoration: none; /* 去除默认的下划线 */
@@ -44,7 +44,7 @@
       </div>
     </div>
     <!-- navbar tab -->
-    <ul class="nav nav-pills nav-fill shadow" style="margin-top: 1rem;" id="myTab" role="tablist">
+    <ul class="nav nav-pills shadow" style="margin-top: 1rem;" id="myTab" role="tablist">
       <li class="nav-item" id="nav-item-domestic" role="presentation">
         <button class="nav-link active" id="pills-domestic-tab" data-bs-toggle="pill" data-bs-target="#pills-domestic" type="button"
           role="tab" aria-controls="pills-domestic" aria-selected="true">国内疫情</button>
@@ -62,9 +62,9 @@
     <div class="tab-content" id="pills-tabContent">
       <!-- domestic pane -->
       <div class="tab-pane fade show active " id="pills-domestic" role="tabpanel" aria-labelledby="pills-domestic-tab">  
-        <div id="domestic-statistics" class="shadow">
+        <div id="domestic-statistics">
           <div class="row shadow" id="domestic-r1" style="margin-top: 2rem;">
-            <div class="col p-0">
+            <div class="col p-0 ms-0">
               <div class="card" id="card-domestic-01">
                 <h6 class="card-header">新增确诊</h6>
                 <div class="card-body">
@@ -89,8 +89,8 @@
               </div>
             </div>
           </div>
-          <div class="row mt-1 " id="domestic-r2">
-            <div class="col p-0">
+          <div class="row mt-1 shadow" id="domestic-r2">
+            <div class="col p-0 ms-0">
               <div class="card" id="card-domestic-11">
                 <h6 class="card-header">疑似确诊</h6>
                 <div class="card-body">
@@ -249,7 +249,8 @@
     
     <!-- script importing -->
    
-    <script src="../bootstrap-5.1.1-dist/js/bootstrap.min.js" type="text/javascript"></script>
+    <script src="/bootstrap-5.1.1-dist/js/bootstrap.min.js" type="text/javascript"></script>
+    </div >
 </body>
 
 </html>

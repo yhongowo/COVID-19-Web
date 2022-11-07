@@ -5,11 +5,10 @@ var global_series2 = [];
 var domestic_chart;
 var global_chart;
 
-
 $(document).ready(function () {
   //get overall data
   $.getJSON(
-    "http://127.0.0.1:12560/api/overall",
+    "http://175.178.174.246:12560/api/overall",
     function (data, status) {
       //修改statistics_domestic里card的数据
       $("#card-domestic-01 p").text(data.currentConfirmedIncr);
@@ -29,9 +28,8 @@ $(document).ready(function () {
   );
 
   $.getJSON(
-    "http://127.0.0.1:12560/api/timeline",
+    "http://175.178.174.246:12560/api/timeline",
     function (data, status) {
-      //向最新消息里添加dom元素
       for (let i = 0; i < data.length; i++) {
         appendNewsCard(
           data[i].title,
@@ -41,19 +39,20 @@ $(document).ready(function () {
         );
       }
     }
-  )
+  );
 
   //get province's data
   $.getJSON(
-    "http://127.0.0.1:12560/api/area/province",
+    "http://175.178.174.246:12560/api/area/province",
     function (data, status) {
-      //append data to tbody
       data.sort(sortByProperty("currentConfirmedCount"));
       for (let i = 0; i < data.length; i++) {
         let row = data[i];
         let $tr = $("<tr></tr>");
         let provinceName = $("<th>" + row.provinceName + "</th>");
-        let currentConfirmedCount = $("<td>" + row.currentConfirmedCount + "</td>");
+        let currentConfirmedCount = $(
+          "<td>" + row.currentConfirmedCount + "</td>"
+        );
         let suspectedCount = $("<td>" + row.suspectedCount + "</td>");
         let confirmedCount = $("<td>" + row.confirmedCount + "</td>");
         $tr
@@ -67,7 +66,7 @@ $(document).ready(function () {
   );
   //get international data
   $.getJSON(
-    "http://127.0.0.1:12560/api/area/abroad",
+    "http://175.178.174.246:12560/api/area/abroad",
     function (data, status) {
       //append data to tbody
       data.sort(sortByProperty("currentConfirmedCount"));
@@ -76,7 +75,9 @@ $(document).ready(function () {
         let row = data[i];
         let $tr = $("<tr></tr>");
         let countryName = $("<th>" + row.provinceName + "</th>");
-        let currentConfirmedCount = $("<td>" + row.currentConfirmedCount + "</td>");
+        let currentConfirmedCount = $(
+          "<td>" + row.currentConfirmedCount + "</td>"
+        );
         let deadRate = $("<td>" + row.deadRate + "</td>");
         let confirmedCount = $("<td>" + row.confirmedCount + "</td>");
         $tr
@@ -89,30 +90,19 @@ $(document).ready(function () {
       }
     }
   );
-  //get echart data
+  //get chart data
+  $.getJSON(
+    "http://175.178.174.246:12560/api/overall/list",
+    function (data, status) {
+      initDomesticChart(data);
+      initGlobalChart(data);
+    }
+  );
 
-  $.getJSON("http://127.0.0.1:12560/api/overall/list", function (data, status) {
-    initDomesticChart(data)
-  });
-  $.getJSON("http://127.0.0.1:12560/api/overall/list", function (data, status) {
-    initGlobalChart(data)
-  });
-
-
-
-
-  // 降序排序，现存确诊多的项排在前面
-  function sortByProperty(property) {
-    return function (a, b) {
-      if (a[property] > b[property]) return -1;
-      else if (a[property] < b[property]) return 1;
-      else return 0;
-    };
-  }
   //将新闻数据装填到card标签中，再插入html
   function appendNewsCard(title, summary, sourceUrl, pubDateStr) {
     //结构：
-    //     <a class="news-a" href="#">
+    // <a class="news-a" href="#">
     //     <div class="card shadow-sm p-3 mb-3" >
     //     <div class="card-body">
     //       <h5 class="card-title">Special title treatment</h5>
@@ -149,7 +139,7 @@ $(document).ready(function () {
   function initDomesticChart(data) {
     var dates = [];
     for (i = 0; i < data.length; i += 1) {
-      dates.push(data[i].date);
+      dates.push(formatDate(data[i].updateTime));
       domestic_series.push(data[i].confirmedCount);
       domestic_current.push(data[i].currentConfirmedCount);
     }
@@ -161,17 +151,15 @@ $(document).ready(function () {
       document.getElementById("domestic-charts")
     );
     domestic_chart.setOption({
-      title: {
-
-      },
+      title: {},
       tooltip: {
         trigger: "axis",
         position: function (pos, params, dom, rect, size) {
           // 鼠标在左侧时 tooltip 显示到右侧，鼠标在右侧时 tooltip 显示到左侧。
           var obj = { top: 60 };
-          obj[['left', 'right'][+(pos[0] < size.viewSize[0] / 2)]] = 5;
+          obj[["left", "right"][+(pos[0] < size.viewSize[0] / 2)]] = 5;
           return obj;
-        }
+        },
       },
       legend: {
         data: ["确诊人数"],
@@ -179,9 +167,9 @@ $(document).ready(function () {
       grid: {
         left: "1%",
         right: "1%",
-        top: '5%',
-        bottom: '17%',
-        containLabel: true
+        top: "5%",
+        bottom: "17%",
+        containLabel: true,
       },
       xAxis: {
         type: "category",
@@ -192,16 +180,16 @@ $(document).ready(function () {
           },
         },
         axisLabel: {
-          fontSize: 10
-        }
+          fontSize: 10,
+        },
       },
       yAxis: {
         type: "value",
         name: "累计感染人数",
         axisLabel: {
           fontSize: 10,
-          inside: true
-        }
+          inside: true,
+        },
       },
       dataZoom: [
         {
@@ -247,17 +235,16 @@ $(document).ready(function () {
           hoverAnimation: "true",
         },
         {
-          type: 'line',
-          name: '现有感染',
+          type: "line",
+          name: "现有感染",
           smooth: "true",
           data: domestic_current,
-          stack: 'Total',
+          stack: "Total",
           sampling: "average",
           areaStyle: {},
           emphasis: {
-            focus: 'series'
+            focus: "series",
           },
-
         },
       ],
     });
@@ -271,9 +258,9 @@ $(document).ready(function () {
   function initGlobalChart(data) {
     var dates = [];
     for (i = 0; i < data.length; i++) {
-      dates.push(data[i].date);
-      global_series.push(data[i].confirmedCount)
-      global_series2.push(data[i].currentConfirmedCount)
+      dates.push(formatDate(data[i].foreignStatistics.updateTime));
+      global_series.push(data[i].foreignStatistics.confirmedCount);
+      global_series2.push(data[i].currentConfirmedCount);
     }
 
     console.log(global_series);
@@ -281,17 +268,15 @@ $(document).ready(function () {
 
     var global_chart = echarts.init(document.getElementById("global-charts"));
     global_chart.setOption({
-      title: {
-
-      },
+      title: {},
       tooltip: {
         trigger: "axis",
         position: function (pos, params, dom, rect, size) {
           // 鼠标在左侧时 tooltip 显示到右侧，鼠标在右侧时 tooltip 显示到左侧。
           var obj = { top: 60 };
-          obj[['left', 'right'][+(pos[0] < size.viewSize[0] / 2)]] = 5;
+          obj[["left", "right"][+(pos[0] < size.viewSize[0] / 2)]] = 5;
           return obj;
-        }
+        },
       },
       legend: {
         data: ["确诊人数"],
@@ -299,9 +284,9 @@ $(document).ready(function () {
       grid: {
         left: "1%",
         right: "1%",
-        top: '5%',
-        bottom: '18%',
-        containLabel: true
+        top: "5%",
+        bottom: "18%",
+        containLabel: true,
       },
       xAxis: {
         type: "category",
@@ -312,16 +297,16 @@ $(document).ready(function () {
           },
         },
         axisLabel: {
-          fontSize: 10
-        }
+          fontSize: 10,
+        },
       },
       yAxis: {
         type: "value",
         name: "累计感染人数",
         axisLabel: {
           fontSize: 10,
-          inside: true
-        }
+          inside: true,
+        },
       },
       dataZoom: [
         {
@@ -367,13 +352,13 @@ $(document).ready(function () {
           hoverAnimation: "true",
         },
         {
-          type: 'line',
-          name: '现有感染',
-          stack: 'Total',
+          type: "line",
+          name: "现有感染",
+          stack: "Total",
           sampling: "average",
           areaStyle: {},
           emphasis: {
-            focus: 'series'
+            focus: "series",
           },
           data: global_series2,
           hoverAnimation: "true",
@@ -391,3 +376,20 @@ $(document).ready(function () {
     });
   }
 });
+
+
+function formatDate(timestamp) {
+  let date = new Date(timestamp * 1000);
+  let year = date.getFullYear();
+  let month = date.getMonth();
+  let day = date.getDate();
+  return year + "-" + month + "-" + day;
+}
+// 降序排序
+function sortByProperty(property) {
+  return function (a, b) {
+    if (a[property] > b[property]) return -1;
+    else if (a[property] < b[property]) return 1;
+    else return 0;
+  };
+}
