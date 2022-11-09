@@ -1,6 +1,6 @@
-var domestic_series = [];
+var domestic_yesterday_Incr = [];
 var global_series = [];
-var domestic_current = [];
+var domestic_current_confirmed = [];
 var global_series2 = [];
 var domestic_chart;
 var global_chart;
@@ -140,12 +140,9 @@ $(document).ready(function () {
     var dates = [];
     for (i = 0; i < data.length; i += 1) {
       dates.push(formatDate(data[i].updateTime));
-      domestic_series.push(data[i].confirmedCount);
-      domestic_current.push(data[i].currentConfirmedCount);
+      domestic_yesterday_Incr.push(data[i].yesterdayConfirmedCountIncr);
+      domestic_current_confirmed.push(data[i].currentConfirmedCount);
     }
-
-    console.log(dates);
-    console.log(domestic_series);
 
     var domestic_chart = echarts.init(
       document.getElementById("domestic-charts")
@@ -162,7 +159,8 @@ $(document).ready(function () {
         },
       },
       legend: {
-        data: ["确诊人数"],
+        orient:'vertical',
+        right:10,
       },
       grid: {
         left: "1%",
@@ -213,12 +211,12 @@ $(document).ready(function () {
       series: [
         {
           type: "line",
-          name: "累计感染",
+          name: "昨日新增",
           itemStyle: {
             color: "rgb(255, 70, 131)",
           },
           smooth: "true",
-          data: domestic_series,
+          data: domestic_yesterday_Incr,
           sampling: "average",
           areaStyle: {
             color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
@@ -238,7 +236,7 @@ $(document).ready(function () {
           type: "line",
           name: "现有感染",
           smooth: "true",
-          data: domestic_current,
+          data: domestic_current_confirmed,
           stack: "Total",
           sampling: "average",
           areaStyle: {},
@@ -258,14 +256,10 @@ $(document).ready(function () {
   function initGlobalChart(data) {
     var dates = [];
     for (i = 0; i < data.length; i++) {
-      dates.push(formatDate(data[i].foreignStatistics.updateTime));
-      global_series.push(data[i].foreignStatistics.confirmedCount);
+      dates.push(formatDate(data[i].updateTime));
+      global_series.push(data[i].foreignStatistics.confirmedIncr);
       global_series2.push(data[i].currentConfirmedCount);
     }
-
-    console.log(global_series);
-    console.log(global_series2);
-
     var global_chart = echarts.init(document.getElementById("global-charts"));
     global_chart.setOption({
       title: {},

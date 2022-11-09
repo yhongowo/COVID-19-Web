@@ -9,16 +9,8 @@
     }
 
     body {
-      background-color: #bbd5d8;
+      background-color: #e3e3e3;
     }
-
-
-    @media screen and (max-width: 992px) {
-        .container {
-            width: 992;
-        }
-    }
-
 
     .container {
       background-color: white;
