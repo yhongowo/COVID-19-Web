@@ -160,11 +160,11 @@ $(document).ready(function () {
       },
       legend: {
         orient:'vertical',
-        right:10,
+        right:12,
       },
       grid: {
-        left: "1%",
-        right: "1%",
+        left: "2%",
+        right: "2%",
         top: "5%",
         bottom: "17%",
         containLabel: true,
@@ -257,7 +257,7 @@ $(document).ready(function () {
     var dates = [];
     for (i = 0; i < data.length; i++) {
       dates.push(formatDate(data[i].updateTime));
-      global_series.push(data[i].foreignStatistics.confirmedIncr);
+      global_series.push(data[i].globalStatistics.confirmedIncr);
       global_series2.push(data[i].currentConfirmedCount);
     }
     var global_chart = echarts.init(document.getElementById("global-charts"));
@@ -273,13 +273,14 @@ $(document).ready(function () {
         },
       },
       legend: {
-        data: ["确诊人数"],
+        orient:'vertical',
+        right:12,
       },
       grid: {
-        left: "1%",
-        right: "1%",
+        left: "2%",
+        right: "2%",
         top: "5%",
-        bottom: "18%",
+        bottom: "17%",
         containLabel: true,
       },
       xAxis: {
@@ -373,9 +374,9 @@ $(document).ready(function () {
 
 
 function formatDate(timestamp) {
-  let date = new Date(timestamp * 1000);
+  let date = new Date(timestamp);
   let year = date.getFullYear();
-  let month = date.getMonth();
+  let month = date.getMonth() +1;
   let day = date.getDate();
   return year + "-" + month + "-" + day;
 }
