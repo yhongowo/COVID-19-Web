@@ -4,6 +4,9 @@ var domestic_current_confirmed = [];
 var global_series2 = [];
 var domestic_chart;
 var global_chart;
+var domestic_chart_map;
+var domestic_map = [];
+
 
 $(document).ready(function () {
   //get overall data
@@ -62,6 +65,14 @@ $(document).ready(function () {
           .append(confirmedCount);
         $("#domestic-table tbody").append($tr);
       }
+      for (let i = 0; i < data.length; i++) {
+        var temp = {
+          "name":data[i].provinceShortName,
+          "value":data[i].currentConfirmedCount
+        }
+        domestic_map.push(temp)  
+      }
+      initDomesticMap(domestic_map)
     }
   );
   //get international data
@@ -138,7 +149,7 @@ $(document).ready(function () {
   //整理数据，初始化图表
   function initDomesticChart(data) {
     var dates = [];
-    for (i = 0; i < data.length; i += 1) {
+    for (var i = 0; i < data.length; i += 1) {
       dates.push(formatDate(data[i].updateTime));
       domestic_yesterday_Incr.push(data[i].yesterdayConfirmedCountIncr);
       domestic_current_confirmed.push(data[i].currentConfirmedCount);
@@ -163,8 +174,8 @@ $(document).ready(function () {
         right:12,
       },
       grid: {
-        left: "2%",
-        right: "2%",
+        left: "3%",
+        right: "3%",
         top: "5%",
         bottom: "17%",
         containLabel: true,
@@ -253,9 +264,71 @@ $(document).ready(function () {
       setInterval(domestic_chart.resize, 200);
     });
   }
+  function initDomesticMap(data) {
+    domestic_chart_map = echarts.init(document.getElementById('domestic-charts-map'));
+    // 指定图表的配置项和数据
+    var option = {
+      title: {
+        text: '中国新冠疫情实时数据地图',
+        left: 'center'
+      },
+      tooltip: {
+        trigger: 'item'
+      },
+      legend: {
+        orient: 'vertical',
+        left: 'left',
+        data: ['中国新冠疫情实时数据地图']
+      },
+      visualMap: {
+        type: 'piecewise',
+        pieces: [
+          { min: 10000, max: 1000000, label: '确诊大于等于10000人', color: '#372a28' },
+          { min: 5000, max: 9999, label: '确诊5000-9999人', color: '#4e160f' },
+          { min: 1000, max: 4999, label: '确诊1000-4999人', color: '#974236' },
+          { min: 100, max: 999, label: '确诊100-999人', color: '#ee7263' },
+          { min: 1, max: 99, label: '确诊1-99人', color: '#f5bba7' },
+        ],
+        color: ['#E0022B', '#E09107', '#A3E00B']
+      },
+      toolbox: {
+        show: true,
+        orient: 'vertical',
+        left: 'right',
+        top: 'center',
+        feature: {
+          mark: { show: true },
+          dataView: { show: true, readOnly: false },
+          restore: { show: true },
+          saveAsImage: { show: true }
+        }
+      },
+      roamController: {
+        show: true,
+        left: 'right',
+        mapTypeControl: {
+          'china': true
+        }
+      },
+      series: [
+        {
+          name: '确诊数',
+          type: 'map',
+          mapType: 'china',
+          roam: false,
+          label: {
+            show: true,
+            color: 'rgb(249, 249, 249)'
+          },
+          data: domestic_map
+        }
+      ]
+    };
+    domestic_chart_map.setOption(option);
+  }
   function initGlobalChart(data) {
     var dates = [];
-    for (i = 0; i < data.length; i++) {
+    for (var i = 0; i < data.length; i++) {
       dates.push(formatDate(data[i].updateTime));
       global_series.push(data[i].globalStatistics.confirmedIncr);
       global_series2.push(data[i].currentConfirmedCount);
@@ -361,9 +434,16 @@ $(document).ready(function () {
       ],
     });
 
-    window.addEventListener("resize", function () {
-      domestic_chart.resize();
-      global_chart.resize();
+    window.addEventListener("resize", () =>{
+      if(domestic_chart){
+        domestic_chart.resize();
+      }
+      if(domestic_chart_map){
+        domestic_chart_map.resize();
+      }
+      if(global_chart) {
+        global_chart.resize();
+      }
     });
 
     $("#pills-global-tab").click(function () {

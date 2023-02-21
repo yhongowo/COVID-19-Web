@@ -12,7 +12,8 @@
   <link rel="stylesheet" href="/css/style.css">
   <script src="/js/jquery-3.6.0.min.js"></script>
   <script src="/js/echarts.min.js"></script>
-  <script src="/js/getData.js"></script>
+  <script src="/js/china.js"></script>
+  <script type="module" src="/js/getData.js"></script>
   <style>
    a {
 	    text-decoration: none; /* 去除默认的下划线 */
@@ -116,9 +117,10 @@
             </div>
           </div>
         </div>
-        <div id="domestic-charts" style="height: 300px; width: 100%;padding: auto;margin-top: 2rem;">
+        <div id="domestic-charts" style="height: 330px; width: 100%; padding: auto; margin-top: 2rem;">
           <!-- <script src="../js/chart.js"></script> -->
         </div>
+        <div id="domestic-charts-map" style="height: 500px; margin-top: 1rem;"></div>
         <div id="domestic-table" class="shadow" style="margin-top: 2rem;">
           <table class="table table-sm table-striped table-bordered">
             <thead>
@@ -191,7 +193,7 @@
             </div>
           </div>
         </div>
-        <div id="global-charts" style="height: 300px; width: 100%; padding: auto; margin-top: 2rem;">
+        <div id="global-charts" style="height: 330px; width: 100%; padding: auto; margin-top: 2rem;">
           <!-- <script src="../js/domestic-chart.js"></script> -->
         </div>
         <div id="global-table" class="align-middle" style="margin-top: 2rem;">
